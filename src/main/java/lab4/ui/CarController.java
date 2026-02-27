@@ -128,7 +128,7 @@ public final class CarController {
 
   void scaniaLowerBed() { scania.setTipBedAngle((byte) 0); }
 
-  public static void main() {
+  public static void main(String[] args) {
     CarController cc = new CarController();
 
     cc.volvo.mutatePoint(0, 0);
