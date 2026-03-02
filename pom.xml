@@ -1,5 +1,5 @@
 <!--
-ui/pom.xml 
+ui/pom.xml
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -21,10 +21,10 @@ ui/pom.xml
   <name>LAB4-UI</name>
 
   <dependencies>
-    <dependency>
+    <!-- <dependency>
       <groupId>se.gu.lab</groupId>
       <artifactId>model</artifactId>
-    </dependency>
+    </dependency> -->
 
     <dependency>
       <groupId>org.apache.commons</groupId>
