@@ -47,7 +47,6 @@ public final class Canvas extends JComponent implements SnapshotListener {
       g2.setColor(new Color(0, 255, 0));
       g2.fillRect(ox, oy, w, h);
 
-      // garages
       g2.setColor(Color.DARK_GRAY);
       for (GarageSnapshot gr : snapshot.garages()) {
         int x = ox + (int) gr.x();
@@ -59,7 +58,6 @@ public final class Canvas extends JComponent implements SnapshotListener {
         }
       }
 
-      // vehicles (sprites)
       for (VehicleSnapshot v : snapshot.vehicles()) {
         int x = ox + (int) v.x();
         int y = oy + (int) v.y();
