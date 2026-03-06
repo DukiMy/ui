@@ -1,3 +1,6 @@
+/**
+ * RootContainer.java
+ */
 package lab4.ui;
 
 import java.awt.BorderLayout;

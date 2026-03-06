@@ -1,31 +1,34 @@
-/*
- * File: DrawPanel.java
+/**
+ * Canvas.java
  */
 
 package lab4.ui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
+import lab4.ui.render.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
+import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
+import java.util.List;
 
-public final class Canvas extends JComponent {
+public final class Canvas extends JComponent implements SnapshotListener {
 
-  private final String title = "Canvas";
-  private final Dimension dim = new Dimension(700, 400);
-  private final Border border = BorderFactory.createTitledBorder(title);
+  private final Border border = BorderFactory.createTitledBorder("Canvas");
+  private final SpriteStore sprites = new SpriteStore();
 
-  public Canvas() {
-    super();
+  private volatile WorldSnapshot snapshot =
+    new WorldSnapshot(0, 0, List.of(), List.of());
 
-    setPreferredSize(dim);
+  public Canvas(int width, int height) {
+    setPreferredSize(new Dimension(width, height));
     setBorder(border);
+    setOpaque(true);
+  }
 
+  @Override
+  public void snapshotChanged(WorldSnapshot snapshot) {
+    this.snapshot = snapshot;
+    repaint();
   }
 
   @Override
@@ -35,15 +38,37 @@ public final class Canvas extends JComponent {
     Graphics2D g2 = (Graphics2D) g.create();
     try {
       Insets in = getInsets();
+      int ox = in.left;
+      int oy = in.top;
 
-      int x0 = in.left;
-      int y0 = in.top;
+      int w = getWidth() - in.left - in.right;
+      int h = getHeight() - in.top - in.bottom;
 
       g2.setColor(new Color(0, 255, 0));
-      g2.fillRect(x0, y0, 100, 50);
+      g2.fillRect(ox, oy, w, h);
 
-      g2.setColor(Color.BLACK);
-      g2.drawString("Hello", x0 + 10, y0 + 20);
+      // garages
+      g2.setColor(Color.DARK_GRAY);
+      for (GarageSnapshot gr : snapshot.garages()) {
+        int x = ox + (int) gr.x();
+        int y = oy + (int) gr.y();
+
+        Image img = sprites.get(gr.spriteId());
+        if (img != null) {
+          g2.drawImage(img, x, y, 60, 60, this);
+        }
+      }
+
+      // vehicles (sprites)
+      for (VehicleSnapshot v : snapshot.vehicles()) {
+        int x = ox + (int) v.x();
+        int y = oy + (int) v.y();
+
+        Image img = sprites.get(v.spriteId());
+        if (img != null) {
+          g2.drawImage(img, x, y, 60, 60, this);
+        }
+      }
     } finally {
       g2.dispose();
     }

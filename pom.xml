@@ -21,15 +21,26 @@ ui/pom.xml
   <name>LAB4-UI</name>
 
   <dependencies>
-    <!-- <dependency>
+    <dependency>
       <groupId>se.gu.lab</groupId>
       <artifactId>model</artifactId>
-    </dependency> -->
+    </dependency>
 
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>com.formdev</groupId>
+      <artifactId>flatlaf</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.formdev</groupId>
+      <artifactId>flatlaf-intellij-themes</artifactId>
+    </dependency>
+
   </dependencies>
 
 </project>
